@@ -56,7 +56,7 @@ void inline mwte_fft_swap_indices(num_cpx* data, int i, int j);
 // F_r = sum[k=0:k=N0-1](f_k * W_N0^kr)
 // W_N0 = e^(2 * pi / N0)
 // k = index
-void inline mwte_fft_w_index(num_cpx* data, int i, int j);
+void inline mwte_fft_w_index(num_cpx* data, d_type min_res, int index);
 // performs forward fft in-place
 void mwte_fft_in_place (fft_state* state);
 
