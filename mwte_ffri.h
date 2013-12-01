@@ -21,13 +21,12 @@ typedef struc {
 }
 
 /*
-  Explanation of macros dealing with complex math:
 
    C_MUL(m,a,b)         : m = a*b
    C_FIXDIV( c , div )  : if a fixed point impl., c /= div. noop otherwise
    C_SUB( res, a,b)     : res = a - b
    C_SUBFROM( res , a)  : res -= a
-   C_ADDTO( res, b , a) : res a + b
+   C_ADD( res, b , a) : res a + b
    C_ADDTO( res , a)    : res += a
  * */
 
