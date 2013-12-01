@@ -55,12 +55,12 @@ typedef struc {
 
 // allocates struct for fft
 void mwte_fft_alloc (int nfft, d_type* data, d_len);
-// sorts data by the bit reversal
-void mwte_fft_bit_reversal_sort(num_cpx* data);
+// sorts data by the bit reversal length must be power of 2
+void mwte_fft_bit_reversal_sort(num_cpx* data, int length);
 // converts data to fft_struct
 void mwte_fft_conv_cpx (d_type* data, d_len);
-// reverses bits up to given size, size must be power of two
-int inline mwte_fft_reverse_bits(unsigned int bits, unsigned int size);
+// reverses bits up to given bit_length, bit_length must be power of two
+int inline mwte_fft_reverse_bits(unsigned int bits, unsigned int bit_length);
 // swaps data[i] and data[j]
 void inline mwte_fft_swap_indices(num_cpx* data, int i, int j);
 // performs forward fft in-place
