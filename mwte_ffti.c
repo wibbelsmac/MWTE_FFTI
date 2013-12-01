@@ -1,4 +1,5 @@
 #include "mwte_ffti.h"
+#include <stdio.h>
 
 void inline mwte_fft_add(num_cpx* res, num_cpx a, num_cpx b) {
   res->real = a.real + b.real;\
@@ -15,12 +16,13 @@ void mwte_fft_alloc (int nfft, d_type* data, int* d_len, fft_state* state) {
 }
 
 void mwte_fft_bit_reversal_sort(num_cpx* data, int length) {
-  int i, swap_index, bit_length;
+  unsigned int i, swap_index, bit_length;
   bit_length = log2(length);
 
   for(i = 0; i < length; i++) {
-
     swap_index = mwte_fft_reverse_bits(i, bit_length);
+
+    printf("i: %x sw: %x \n", i, swap_index);
 
     if(i <= swap_index) {
       mwte_fft_swap_indices(data, i, swap_index);
@@ -50,10 +52,14 @@ void inline mwte_fft_mul_scalar(num_cpx* res, d_type s) {
 int inline mwte_fft_reverse_bits(unsigned int bits, unsigned int bit_length) {
   // Algorithm taken from
   // http://graphics.stanford.edu/~seander/bithacks.html
-  unsigned int mask = ~0;
+  unsigned int mask, bit_mask;
+  mask = bit_mask = ~0;
+  bit_mask ^= (mask << bit_length);
+
   while ((bit_length >>= 1)) {
     mask ^= (mask << bit_length);
     bits = ((bits >> bit_length) & mask) | ((bits << bit_length) & ~mask);
+    bits &= bit_mask;
   }
 
   return bits;
@@ -78,7 +84,6 @@ void inline mwte_fft_w_index(num_cpx* data, d_type min_res, int index){
   data->real = cos(min_res * index);
   data->imag = sin(min_res * index);
 }
-
 
 void mwte_fft_in_place (fft_state* state) {
   num_cpx * fft_arr = state->data;
