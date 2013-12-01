@@ -18,7 +18,7 @@ typedef struc {
 	num_cpx * data; 
 	int nfft;	// number of fft_divisions
 	int factor; // current sub_fft iteration
-}
+} ff_state;
 
 /*
 
@@ -29,7 +29,7 @@ typedef struc {
    C_ADD( res, b , a) : res a + b
    C_ADDTO( res , a)    : res += a
  */
-   
+
 // allocates struct for fft
 void mwte_fft_alloc (int nfft, d_type* data, d_len);
 // converts data to fft_struct
