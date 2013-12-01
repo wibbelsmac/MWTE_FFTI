@@ -44,7 +44,7 @@ void inline mwte_fft_swap_indices(num_cpx* data, int i, int j) {
 
 // performs forward fft in-place
 void mwte_ffti (int nfft, d_type* data, d_len) {
-  num_cpx * fft_arr = state->data; 
+  for(int N0 = 2; 
   cur_fft_size = pow(2,state->iter); // calc number of groups for FFT size 1,2,4,8
 
 }
