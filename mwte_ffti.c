@@ -126,7 +126,6 @@ void mwte_fft_in_place (fft_state* state) {
   int length = state->d_len;
   mwte_fft_bit_reversal_sort(state->data, length);
   while(N0 <= length) {
-    printf("################# SUB FFT For N0: %d #################\n", N0);
     mwte_sub_fft_in_place(state, N0);
     N0 *=2;
   }
