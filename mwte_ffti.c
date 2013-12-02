@@ -22,8 +22,6 @@ void mwte_fft_bit_reversal_sort(num_cpx* data, int length) {
   for(i = 0; i < length; i++) {
     swap_index = mwte_fft_reverse_bits(i, bit_length);
 
-    printf("i: %x sw: %x \n", i, swap_index);
-
     if(i <= swap_index) {
       mwte_fft_swap_indices(data, i, swap_index);
     }
@@ -50,18 +48,29 @@ void inline mwte_fft_mul_scalar(num_cpx* res, d_type s) {
 }
 
 int inline mwte_fft_reverse_bits(unsigned int bits, unsigned int bit_length) {
-  // Algorithm taken from
+  // Algorithm derived from
   // http://graphics.stanford.edu/~seander/bithacks.html
-  unsigned int mask, bit_mask;
-  mask = bit_mask = ~0;
-  bit_mask ^= (mask << bit_length);
+  unsigned int mask, bit_mask, adjusted_length, log, shift;
 
-  while ((bit_length >>= 1)) {
-    mask ^= (mask << bit_length);
-    bits = ((bits >> bit_length) & mask) | ((bits << bit_length) & ~mask);
+  // adjust bit length to be a power of 2
+  // then shift it by the difference
+  log = log2(bit_length);
+  if(pow(2, log) != bit_length) {
+    log++;
+  }
+  adjusted_length = pow(2, log);
+  shift = adjusted_length - bit_length;
+
+  mask = bit_mask = ~0;
+  bit_mask ^= (mask << adjusted_length);
+
+  while ((adjusted_length >>= 1)) {
+    mask ^= (mask << adjusted_length);
+    bits = ((bits >> adjusted_length) & mask) | ((bits << adjusted_length) & ~mask);
     bits &= bit_mask;
   }
 
+  bits >>= shift;
   return bits;
 }
 

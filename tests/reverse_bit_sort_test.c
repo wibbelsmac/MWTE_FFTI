@@ -29,6 +29,6 @@ void print_num_cpx_array(num_cpx* data, int size) {
 }
 
 int main(void) {
-  mwte_fft_bit_reversal_sort_test(128);
+  mwte_fft_bit_reversal_sort_test(32);
   return 0;
 }
