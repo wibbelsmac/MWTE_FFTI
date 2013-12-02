@@ -36,7 +36,7 @@ void print_num_cpx_array(num_cpx* data, int size) {
 
 int main(void) {
   double sample_freq = 8.0;
-  double signal_freq = 2.0;
+  double signal_freq = 1.0;
   mwte_fft_in_place_fft_test(32, signal_freq, sample_freq);
   return 0;
 }
